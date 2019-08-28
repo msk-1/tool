@@ -1,3 +1,4 @@
+
 # CSVのレコードをカラムごとに分割し、リストを返却するメソッド
 # 値にカンマを含むカラムに対応
 # 制約1 ダブルクォーテーションはダブルクォーテーション二つにエスケープしておくこと
@@ -17,16 +18,15 @@ def csvLineToList(record):
         elif c == ",":
             cmCount += 1
         if i == len(record)-1:
-            print(record[colFirst:i])
+            print(record[colFirst + 1 : i])
             break
         # ダブルクォートで囲まれていないカラムの処理
-        f = 0 if (dqCount == 0 and cmCount == 1) else 1 if (dqCount % 2 == 0 and record[i + 1 ] == ",") else 2
-        
+        f = 0 if (dqCount == 0 and cmCount == 1) else 1 if (dqCount != 0 and dqCount % 2 == 0 and record[i] == ",") else 2
         if f != 2:
             if f == 0:
-                print(record[colFirst:i])
+                print(record[colFirst : i])
             elif f == 1:
-                print(record[colFirst + 1:i])
+                print(record[colFirst + 1 : i - 1])
             # 次のカラムの先頭文字位置を保持
             colFirst = i + 1
             # カウントを初期化
